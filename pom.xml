@@ -37,6 +37,76 @@
             <version>1.8.2</version>
         </dependency>
 
+<!--        RestAssured Dependency-->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.4.0</version>
+        </dependency>
+
+<!--        Json Schema Validation Dependency-->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>4.4.0</version>
+        </dependency>
+
+<!--        ========================================Selenium Dependency===================================-->
+        <!--        Selenium Dependency -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
+        <!--        WEBDRIVER MANAGER -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>5.0.3</version>
+        </dependency>
+
+
+        <!--        Java faker dependency-->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <!--This dependency will get lombok library for autogenerate boiler plate getters setters and so on
+        Your IDE also need plugin to recognize this code generation to the compiler
+        latest intelliJ already come with plugin enabled so we do not have to do anything extra-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
+        </dependency>
+
+        <!--        this is the library for serialization and de-serialization-->
+        <!--        rest assured need it in dependency so it can automatically convert the java object to json without additional-->
+        <!--        code-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.0</version>
+        </dependency>
+
+<!--=======================================Data Base Dependency======================================-->
+        <!--        jdbc dependency-->
+        <dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <version>21.3.0.0</version>
+        </dependency>
+
+        <!--        mySql dependency for Library DB-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.25</version>
+        </dependency>
+
     </dependencies>
 
 </project>
