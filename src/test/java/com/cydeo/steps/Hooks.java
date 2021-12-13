@@ -8,9 +8,10 @@ import io.cucumber.java.Before;
 public class Hooks {
 
     // this run before scenario with database tag
-    @Before("database")
+    @Before("@database")
     public void setupDBconnection(){
 
+        System.out.println("Setting up Hook");
         String url =ConfigReader.read("sp.database.url");
         String username =  ConfigReader.read("sp.database.username");
         String password = ConfigReader.read("sp.database.password");
@@ -18,8 +19,9 @@ public class Hooks {
 
     }
 
-    @After("database")
+    @After("@database")
     public void destroyConnection(){
+        System.out.println("Closing up Hook");
         DB_Util.destroy();
     }
 

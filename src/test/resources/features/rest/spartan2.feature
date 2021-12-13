@@ -1,3 +1,4 @@
+@database
 Feature: Spartan App rest Api Up and running
 
   As a user ,

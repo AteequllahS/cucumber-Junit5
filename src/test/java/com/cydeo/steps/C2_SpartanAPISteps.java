@@ -7,17 +7,14 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import static io.restassured.RestAssured.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.Assertions;
 
 import java.util.Map;
 
-public class SpartanAPISteps {
+public class C2_SpartanAPISteps {
 
     RequestSpecification givenPart;
     Response response;
@@ -151,5 +148,13 @@ public class SpartanAPISteps {
 
         DB_Util.runQuery("SELECT * FROM SPARTANS WHERE SPARTAN_ID = " + lastId);
         DB_Util.displayAllData();
+
+        thenPart.body("id" , is(lastId) )
+                .body("name" , is(DB_Util.getCellValue(1,"NAME")) )
+                .body("gender" , is(DB_Util.getCellValue(1,"GENDER")))
+                .body("phone.toString()" , is(DB_Util.getCellValue(1,"PHONE")) )
+//
+
+        ;
     }
 }

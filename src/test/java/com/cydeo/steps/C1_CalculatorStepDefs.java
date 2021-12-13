@@ -6,7 +6,7 @@ import io.cucumber.java.en.When;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CalculatorStepDefs {
+public class C1_CalculatorStepDefs {
 
     @Given("calculator is open")
     public void calculatorIsOpen() {
