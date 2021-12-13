@@ -1,6 +1,7 @@
 package com.cydeo.steps;
 
 import com.cydeo.utility.DB_Util;
+import com.github.javafaker.Faker;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -12,7 +13,9 @@ import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 
+import java.util.List;
 import java.util.Map;
+
 
 public class C2_SpartanAPISteps {
 
@@ -20,6 +23,11 @@ public class C2_SpartanAPISteps {
     Response response;
     ValidatableResponse thenPart;
     int lastId;
+    int randomSpartanID;
+
+
+
+
 
     @Given("the base _uri and base_path set")
     public void the_base__uri_and_base_path_set() {
@@ -106,7 +114,12 @@ public class C2_SpartanAPISteps {
         //we need to re assign as we are posting this time
         response = givenPart
                             .when()
-                            .post(endPoint).prettyPeek() ;
+                            .post(endPoint)
+                            //.prettyPeek()
+                            ;
+
+        // to update its last value
+        thenPart = response.then();
     }
 
 
@@ -120,7 +133,7 @@ public class C2_SpartanAPISteps {
     @Then("the field value for {string} path should be equal to {string}")
     public void theFieldValueForPathShouldBeEqualTo(String jsonPath, String expectedValue) {
 
-        thenPart.body(jsonPath,  is( expectedValue) );
+        response.then().body(jsonPath,  is( expectedValue) );
 
     }
 
@@ -156,5 +169,96 @@ public class C2_SpartanAPISteps {
 //
 
         ;
+    }
+
+    @When("I send delete request to {string} endpoint")
+    public void iSendDeleteRequestToEndpoint(String endpoint) {
+
+        //any time we make new step, we need to reassign to our global variable.
+        response = givenPart.when().delete(endpoint);
+        thenPart = response.then();
+    }
+
+    @And("I have valid random spartan id")
+    public void iHaveValidRandomSpartanId() {
+
+        //send get request to GET /spartans and
+        //for the index use 0 to allSpartanCount -1 (a random number between 0 to last index)
+
+        // Note: if we have a new environment without data, we first need to add new data and then go with following
+        //process
+
+        List<Integer> allIds = givenPart.get("/spartans").path("id");
+
+        //get the ID at a location from 0 to allIds.size()-1
+/*
+        // Random : under java.util package --> for random number
+        Random random = new Random();
+        //it has a method called nextInt that take a parameter for upperbound (1 to upperbound)
+        int randomIndex = random.nextInt(allIds.size()-1);
+        System.out.println("randomIndex = " + randomIndex);
+
+ */
+        //another way is to use Faker:
+        Faker faker = new Faker();
+        int randomIndex = faker.number().numberBetween(0, allIds.size()-1); // 0 to last index
+
+        //now  use above index and get the item from the list
+        randomSpartanID = allIds.get(randomIndex); // set the variable at class level
+
+        //set this ID to path variable
+        givenPart.pathParam("id", randomSpartanID);
+    }
+
+    @When("I send put request to {string} endpoint")
+    public void iSendPutRequestToEndpoint(String endpoint) {
+
+        response = givenPart.when().put(endpoint);
+    }
+
+    @When("I send patch request to {string} endpoint")
+    public void iSendPatchRequestToEndpoint(String endpoint) {
+
+        response = givenPart.when().patch(endpoint);
+        thenPart = response.then() ;
+
+    }
+
+    @And("I search for spartan with name contains {string} and gender {string}")
+    public void iSearchForSpartanWithNameContainsAndGender(String nameParam, String genderParam) {
+
+        givenPart
+                .queryParam("nameContains", nameParam)
+                .queryParam("gender", genderParam);
+    }
+
+
+    @Then("All names in the result should contain {string} and gender should be {string}")
+    public void allNamesInTheResultShouldContainAndGenderShouldBe(String expectedName, String expectedGender) {
+
+        thenPart
+                .body("content.gender", everyItem( is( expectedGender ) ) )
+                .body("content.name", everyItem( containsStringIgnoringCase( expectedName  ) )) ;
+    }
+
+
+    @Then("The search count for name contains {string} and gender {string} should match the count in the database")
+    public void theSearchCountForNameContainsAndGenderMaleShouldMatchTheCountInTheDatabase(String name, String gender) {
+
+        String query = "SELECT count(*) FROM SPARTANS " +
+                " WHERE UPPER(NAME) LIKE '%"+ name.toUpperCase()  +"%' " +
+                " AND GENDER = '"+gender+"'" ;
+
+        System.out.println("query = " + query);
+
+        DB_Util.runQuery(query);
+        DB_Util.displayAllData();
+
+        // verify the data match
+        thenPart.body("totalElement.toString()" ,  is(  DB_Util.getCellValue(1,1)   )     ) ;
+        // or just convert the db result to number
+        int expectedDBResult = Integer.parseInt(  DB_Util.getCellValue(1,1)  ) ;
+        thenPart.body("totalElement", is(expectedDBResult) );
+
     }
 }

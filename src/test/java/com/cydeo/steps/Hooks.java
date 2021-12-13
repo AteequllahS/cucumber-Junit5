@@ -4,6 +4,7 @@ import com.cydeo.utility.ConfigReader;
 import com.cydeo.utility.DB_Util;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.restassured.RestAssured;
 
 public class Hooks {
 
@@ -23,6 +24,11 @@ public class Hooks {
     public void destroyConnection(){
         System.out.println("Closing up Hook");
         DB_Util.destroy();
+    }
+
+    @After
+    public void resetRestAssured(){
+        RestAssured.reset();
     }
 
 }
