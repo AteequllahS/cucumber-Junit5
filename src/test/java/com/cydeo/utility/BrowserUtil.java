@@ -47,7 +47,7 @@ public class BrowserUtil {
 
          boolean result = false ;
 
-         WebDriverWait wait = new WebDriverWait(Driver.getDriver() ,timeToWait ) ;
+         WebDriverWait wait = new WebDriverWait(DriverPool.getDriver() ,timeToWait ) ;
 
          try {
               wait.until(ExpectedConditions.visibilityOfElementLocated( locator  ));

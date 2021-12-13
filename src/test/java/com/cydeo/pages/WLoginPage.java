@@ -2,7 +2,7 @@ package com.cydeo.pages;
 
 
 import com.cydeo.utility.ConfigReader;
-import com.cydeo.utility.Driver;
+import com.cydeo.utility.DriverPool;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -31,7 +31,7 @@ public class WLoginPage {
         // specified using @FindBy annotation with locator
         // initElements accept 2 arguments ,
         // WebDriver instance and Page class instance (this) means current instance of this class.
-        PageFactory.initElements(Driver.getDriver() , this );
+        PageFactory.initElements(DriverPool.getDriver() , this );
 
     }
 
@@ -41,7 +41,7 @@ public class WLoginPage {
      * use config.properties for url
      */
     public void goTo(){
-        Driver.getDriver().navigate().to( ConfigReader.read("weborder_url")    );
+        DriverPool.getDriver().navigate().to( ConfigReader.read("weborder_url")    );
     }
 
     /**

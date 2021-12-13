@@ -16,16 +16,16 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 public class WebOrderUtility {
 
     public static void openWebOrderApp() {
-        Driver.getDriver().get("http://secure.smartbearsoftware.com/samples/TestComplete11/WebOrders/Login.aspx");
+        DriverPool.getDriver().get("http://secure.smartbearsoftware.com/samples/TestComplete11/WebOrders/Login.aspx");
     }
 
     public static void login() {
 
-        Driver.getDriver().findElement(By.id("ctl00_MainContent_username")).sendKeys("Tester");
+        DriverPool.getDriver().findElement(By.id("ctl00_MainContent_username")).sendKeys("Tester");
         // enter password
-        Driver.getDriver().findElement(By.id("ctl00_MainContent_password")).sendKeys("test");
+        DriverPool.getDriver().findElement(By.id("ctl00_MainContent_password")).sendKeys("test");
         // click login
-        Driver.getDriver().findElement(By.id("ctl00_MainContent_login_button")).click();
+        DriverPool.getDriver().findElement(By.id("ctl00_MainContent_login_button")).click();
 
     }
 
@@ -33,16 +33,16 @@ public class WebOrderUtility {
 
         // enter username
         // we have to update the locators based on website we are using
-        Driver.getDriver().findElement(By.id("ctl00_MainContent_username")).sendKeys(username);
+        DriverPool.getDriver().findElement(By.id("ctl00_MainContent_username")).sendKeys(username);
         // enter password
-        Driver.getDriver().findElement(By.id("ctl00_MainContent_password")).sendKeys(password);
+        DriverPool.getDriver().findElement(By.id("ctl00_MainContent_password")).sendKeys(password);
         // click login
-        Driver.getDriver().findElement(By.id("ctl00_MainContent_login_button")).click();
+        DriverPool.getDriver().findElement(By.id("ctl00_MainContent_login_button")).click();
     }
 
     public static void logout() {
 
-        Driver.getDriver().findElement(By.xpath("//a[@id='ctl00_logout']")).click();
+        DriverPool.getDriver().findElement(By.xpath("//a[@id='ctl00_logout']")).click();
 
     }
 
@@ -55,7 +55,7 @@ public class WebOrderUtility {
 
         //throwing noSuchElementException
         try {
-            WebElement headerText = Driver.getDriver().findElement(By.xpath("//h2[normalize-space(.)='List of All Orders']"));
+            WebElement headerText = DriverPool.getDriver().findElement(By.xpath("//h2[normalize-space(.)='List of All Orders']"));
             System.out.println("Element was identified");
             System.out.println("The header on the page = " + headerText.getText());
             result = true;
@@ -72,7 +72,7 @@ public class WebOrderUtility {
     public static boolean isAtAllOrderPage() {
 
         boolean result = false;
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 2);
+        WebDriverWait wait = new WebDriverWait(DriverPool.getDriver(), 2);
         try {
             // wait.until(ExpectedConditions.urlToBe("http://secure.smartbearsoftware.com/samples/TestComplete11/WebOrders/default.aspx"));
             wait.until(visibilityOfElementLocated(By.xpath("//h2[normalize-space(.)='List of All Orders'] ")));
@@ -88,14 +88,14 @@ public class WebOrderUtility {
 
     public static boolean verifyUserName(String username) {
 
-        WebElement logInArea = Driver.getDriver().findElement(By.cssSelector("div.login_info"));
+        WebElement logInArea = DriverPool.getDriver().findElement(By.cssSelector("div.login_info"));
         System.out.println("logInArea.getText() = " + logInArea.getText());
         return logInArea.getText().contains(username);
     }
 
     public static String getUsernameFromWelcomeMessage() {
 
-        WebElement logInArea = Driver.getDriver().findElement(By.cssSelector("div.login_info"));
+        WebElement logInArea = DriverPool.getDriver().findElement(By.cssSelector("div.login_info"));
         String welcomeMessage = logInArea.getText();
         //Welcome, Tester! | Logout
         return welcomeMessage.replace("Welcome, ", "").replace("! | Logout", "");
@@ -104,7 +104,7 @@ public class WebOrderUtility {
 
     public static void selectSidebarTab(String tabName) {
 
-        Driver.getDriver().findElement(By.linkText(tabName)).click();
+        DriverPool.getDriver().findElement(By.linkText(tabName)).click();
 /* optional
 
         List<String> allTabs = Arrays.asList("View all orders", "View all products", "Order");
@@ -121,11 +121,11 @@ public class WebOrderUtility {
     public static int getUnitPriceFromForm(String productName) {
 
         int price = 0;
-        WebElement productDropdown = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_ddlProduct"));
+        WebElement productDropdown = DriverPool.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_ddlProduct"));
         Select product = new Select(productDropdown);
         product.selectByVisibleText(productName);
 
-        WebElement pricePerUnit = Driver.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_txtUnitPrice"));
+        WebElement pricePerUnit = DriverPool.getDriver().findElement(By.id("ctl00_MainContent_fmwOrder_txtUnitPrice"));
         return Integer.parseInt(pricePerUnit.getAttribute("value"));
 
     }
@@ -144,8 +144,8 @@ public class WebOrderUtility {
     //check all checkboxes by clicking Check All button
     public static boolean checkAll(){
 
-        Driver.getDriver().findElement(By.linkText("Check All"));
-        List<WebElement> checkAllBox = Driver.getDriver().findElements(By.cssSelector("input[id$='OrderSelector']"));
+        DriverPool.getDriver().findElement(By.linkText("Check All"));
+        List<WebElement> checkAllBox = DriverPool.getDriver().findElements(By.cssSelector("input[id$='OrderSelector']"));
 
         boolean result = true;
         //as long as one of them are not checked, return false immediately
@@ -162,8 +162,8 @@ public class WebOrderUtility {
     //uncheck all checkboxes by clicking Uncheck All button
     public static boolean unCheckAll(){
 
-        Driver.getDriver().findElement(By.linkText("uncheck All"));
-        List<WebElement> checkAllBox = Driver.getDriver().findElements(By.cssSelector("input[id$='OrderSelector']"));
+        DriverPool.getDriver().findElement(By.linkText("uncheck All"));
+        List<WebElement> checkAllBox = DriverPool.getDriver().findElements(By.cssSelector("input[id$='OrderSelector']"));
 
         boolean result = true;
         //as long as one of them are not checked, return false immediately

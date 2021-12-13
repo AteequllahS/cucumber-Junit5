@@ -1,6 +1,6 @@
 package com.cydeo.pages;
 
-import com.cydeo.utility.Driver;
+import com.cydeo.utility.DriverPool;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -22,7 +22,7 @@ public class WAllOrderPage {
     public List<WebElement> headerCells ;
 
     public WAllOrderPage(){
-        PageFactory.initElements(Driver.getDriver(), this);
+        PageFactory.initElements(DriverPool.getDriver(), this);
     }
 
     // Create a method to loop through all header cell

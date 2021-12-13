@@ -1,3 +1,4 @@
+@ui
 Feature: Simple navigation in Spartan App
 
   As a user ,

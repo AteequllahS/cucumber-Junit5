@@ -2,7 +2,7 @@ package com.cydeo.pages;
 
 import com.cydeo.utility.BrowserUtil;
 import com.cydeo.utility.ConfigReader;
-import com.cydeo.utility.Driver;
+import com.cydeo.utility.DriverPool;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -17,13 +17,13 @@ public class GoogleHomePage {
 
     public GoogleHomePage(){
 
-        PageFactory.initElements(Driver.getDriver(), this);
+        PageFactory.initElements(DriverPool.getDriver(), this);
 
     }
 
     /** navigate to google homepage  */
     public void goTo(){
-        Driver.getDriver().get( ConfigReader.read("google.url" )    );
+        DriverPool.getDriver().get( ConfigReader.read("google.url" )    );
     }
 
      /** Search on google homepage
@@ -42,7 +42,7 @@ public class GoogleHomePage {
      * @return true if title is Google false if not  */
 
     public boolean isAt(){
-       return  Driver.getDriver().getTitle().equals("Google") ;
+       return  DriverPool.getDriver().getTitle().equals("Google") ;
     }
 
 }

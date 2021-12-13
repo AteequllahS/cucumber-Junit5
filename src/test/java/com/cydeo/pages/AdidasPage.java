@@ -1,7 +1,7 @@
 package com.cydeo.pages;
 
 import com.cydeo.utility.BrowserUtil;
-import com.cydeo.utility.Driver;
+import com.cydeo.utility.DriverPool;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -17,7 +17,7 @@ import java.util.List;
 public class AdidasPage {
 
     public AdidasPage() {
-        PageFactory.initElements(Driver.getDriver(), this);
+        PageFactory.initElements(DriverPool.getDriver(), this);
     }
 
     @FindBy(xpath = "//h3[@class='price-container']")
@@ -74,10 +74,10 @@ public class AdidasPage {
         // dynamic categories locator //a[.='"+category+"']
         // dynamic products locator //a[normalize-space(.)='"+product+"']
 
-        Driver.getDriver().findElement(By.xpath("//a[.='"+category+"']")).click();
+        DriverPool.getDriver().findElement(By.xpath("//a[.='"+category+"']")).click();
         BrowserUtil.waitFor(1);
 
-        Driver.getDriver().findElement(By.xpath("//a[normalize-space(.)='"+product+"']")).click();
+        DriverPool.getDriver().findElement(By.xpath("//a[normalize-space(.)='"+product+"']")).click();
         BrowserUtil.waitFor(1);
 
         String priceString = purchasePrice.getText();
@@ -92,11 +92,11 @@ public class AdidasPage {
 
         //Explicit Wait
 
-        WebDriverWait wait=new WebDriverWait(Driver.getDriver(), 5);
+        WebDriverWait wait=new WebDriverWait(DriverPool.getDriver(), 5);
         wait.until(ExpectedConditions.alertIsPresent());
 
         //Alert
-        Alert alert=Driver.getDriver().switchTo().alert();
+        Alert alert= DriverPool.getDriver().switchTo().alert();
         alert.accept();
 
         //Go back home
@@ -111,12 +111,12 @@ public class AdidasPage {
         // dynamic locator for productPrice in cartPage
 
         //tbody//td[.='"+product+"']/../td[3]
-        String priceString = Driver.getDriver().findElement(By.xpath("//tbody//td[.='" + product + "']/../td[3]")).getText();
+        String priceString = DriverPool.getDriver().findElement(By.xpath("//tbody//td[.='" + product + "']/../td[3]")).getText();
         int price = Integer.parseInt(priceString);
         System.out.println("price = " + price);
 
         //dynamic locator for Delete button
-        WebElement deleteButton = Driver.getDriver().findElement(By.xpath("//tbody//td[.='" + product + "']/../td/a"));
+        WebElement deleteButton = DriverPool.getDriver().findElement(By.xpath("//tbody//td[.='" + product + "']/../td/a"));
         deleteButton.click();
 
         BrowserUtil.waitFor(3);

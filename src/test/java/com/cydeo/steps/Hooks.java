@@ -2,7 +2,7 @@ package com.cydeo.steps;
 
 import com.cydeo.utility.ConfigReader;
 import com.cydeo.utility.DB_Util;
-import com.cydeo.utility.Driver;
+import com.cydeo.utility.DriverPool;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -42,9 +42,9 @@ public class Hooks {
     public void setupDriver(){
         System.out.println("THIS IS FROM @Before inside hooks class");
         // set up implicit wait or all the browser related set up
-        Driver.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS) ;
+        DriverPool.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS) ;
         // maximize browser here if you wanted
-        Driver.getDriver().manage().window().maximize();
+        DriverPool.getDriver().manage().window().maximize();
     }
 
     @After("@ui")
@@ -53,7 +53,7 @@ public class Hooks {
         // check if scenario failed or not
         if(scenario.isFailed() ){
             // this is how we take screenshot in selenium
-            TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
+            TakesScreenshot ts = (TakesScreenshot) DriverPool.getDriver();
             byte[] screenshot = ts.getScreenshotAs(OutputType.BYTES);
 
             scenario.attach(screenshot, "image/png",scenario.getName());
@@ -61,7 +61,7 @@ public class Hooks {
         }
 
         System.out.println("THIS IS FROM @After inside hooks class");
-        Driver.closeBrowser();
+        DriverPool.closeBrowser();
 
     }
 

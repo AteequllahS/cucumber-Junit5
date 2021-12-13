@@ -1,7 +1,7 @@
 package com.cydeo.pages;
 
 
-import com.cydeo.utility.Driver;
+import com.cydeo.utility.DriverPool;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -27,7 +27,7 @@ public class GoogleResultPage {
     private List<WebElement> resultLinks ;
 
     public GoogleResultPage(){
-        PageFactory.initElements(Driver.getDriver(), this);
+        PageFactory.initElements(DriverPool.getDriver(), this);
     }
 
     /**

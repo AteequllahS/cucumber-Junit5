@@ -1,6 +1,6 @@
 package com.cydeo.pages;
 
-import com.cydeo.utility.Driver;
+import com.cydeo.utility.DriverPool;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -18,7 +18,7 @@ public class DashboardPage {
 
     // add constructor
     public DashboardPage(){
-        PageFactory.initElements(Driver.getDriver(), this);
+        PageFactory.initElements(DriverPool.getDriver(), this);
     }
     // add 3 methods for getting the numbers
     public String getUserCountText(){
