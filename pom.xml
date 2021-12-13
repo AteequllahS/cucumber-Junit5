@@ -16,6 +16,9 @@
 
     <dependencies>
 
+
+<!--===================================Cucumber Dependencies ===================================-->
+
         <!--    latest cucumber version-->
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -30,12 +33,24 @@
             <version>7.1.0</version>
         </dependency>
 
+
+<!--===================================Junit5 Dependencies=================================-->
+
+<!--        for junit 5 assertions -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.8.2</version>
+        </dependency>
+
 <!--        junit 5 suit dependency-->
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-suite</artifactId>
             <version>1.8.2</version>
         </dependency>
+
+<!--        =================================ResAssured Dependencies================================-->
 
 <!--        RestAssured Dependency-->
         <dependency>
@@ -51,7 +66,17 @@
             <version>4.4.0</version>
         </dependency>
 
-<!--        ========================================Selenium Dependency===================================-->
+        <!--        this is the library for serialization and de-serialization-->
+        <!--        rest assured need it in dependency so it can automatically convert the java object to json without additional-->
+        <!--        code-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.0</version>
+        </dependency>
+
+
+        <!--        ========================================Selenium Dependency===================================-->
         <!--        Selenium Dependency -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -83,14 +108,6 @@
             <version>1.18.22</version>
         </dependency>
 
-        <!--        this is the library for serialization and de-serialization-->
-        <!--        rest assured need it in dependency so it can automatically convert the java object to json without additional-->
-        <!--        code-->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.13.0</version>
-        </dependency>
 
 <!--=======================================Data Base Dependency======================================-->
         <!--        jdbc dependency-->
@@ -106,6 +123,14 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.25</version>
         </dependency>
+
+<!--        to not display SLF4J Failed error-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.32</version>
+        </dependency>
+
 
     </dependencies>
 
